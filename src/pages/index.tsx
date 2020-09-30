@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { Flex, Link, Heading, useTheme } from "@chakra-ui/core";
+import { Flex, Link, Heading, Text, useTheme } from "@chakra-ui/core";
 import { FaStrava, FaInstagram } from "react-icons/fa";
 
 const Home: React.FC<{}> = () => {
@@ -30,6 +30,8 @@ const Home: React.FC<{}> = () => {
             <FaInstagram size={theme.fontSizes["4xl"]} />
           </Link>
         </Flex>
+
+        <Text>More content coming soon</Text>
       </Flex>
     </>
   );
