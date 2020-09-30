@@ -22,7 +22,7 @@ const Home: React.FC<{}> = () => {
           Gruppettoruhr
         </Heading>
 
-        <Flex>
+        <Flex p="20px">
           <Link href="https://www.strava.com/clubs/gruppettoruhr" isExternal>
             <FaStrava size={theme.fontSizes["4xl"]} />
           </Link>
