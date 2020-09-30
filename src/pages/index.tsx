@@ -1,9 +1,10 @@
 import React from "react";
 import Head from "next/head";
-import { Flex, Link, Heading } from "@chakra-ui/core";
+import { Flex, Link, Heading, useTheme } from "@chakra-ui/core";
 import { FaStrava, FaInstagram } from "react-icons/fa";
 
 const Home: React.FC<{}> = () => {
+  const theme = useTheme();
   return (
     <>
       <Head>
@@ -23,10 +24,10 @@ const Home: React.FC<{}> = () => {
 
         <Flex>
           <Link href="https://www.strava.com/clubs/gruppettoruhr" isExternal>
-            <FaStrava size={40} />
+            <FaStrava size={theme.fontSizes["4xl"]} />
           </Link>
           <Link href="https://www.instagram.com/gruppettoruhr/" isExternal>
-            <FaInstagram size={40} />
+            <FaInstagram size={theme.fontSizes["4xl"]} />
           </Link>
         </Flex>
       </Flex>
