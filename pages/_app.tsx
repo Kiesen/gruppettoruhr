@@ -1,5 +1,14 @@
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
-}
+import React from "react";
+import { AppProps } from "next/app";
+import { ThemeProvider, CSSReset } from "@chakra-ui/core";
 
-export default MyApp;
+const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+  return (
+    <ThemeProvider>
+      <CSSReset />
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
+};
+
+export default App;
