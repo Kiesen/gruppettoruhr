@@ -33,7 +33,7 @@ The server will run on your local machine on port `3000`. If you want to change 
 
 ### Where to start
 
-An important note is that the gruppettoruhr website is powered by [next.js](https://nextjs.org), which means the project structure strictly follows the guidelines given by the [next.js](https://nextjs.org) team. This also means that you will find every page inside the `src/page` directory, which is a good place to start try things out. Besides the `src/pages` directory we have a directory for all common components like the footer `src/components`.
+An important note is that the gruppettoruhr website is powered by [next.js](https://nextjs.org), which means the project structure strictly follows the guidelines given by the [next.js](https://nextjs.org) team. This also means that you will find every page inside the `src/page` directory, which is a good place to start and try things out. Besides the `src/pages` directory we have a directory for all common components like the footer, it can be found under `src/components`.
 
 ## Contributing
 
