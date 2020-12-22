@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  gruppettoruhr.cc:
+    build: '.'
+    container_name: gruppettoruhr.cc
+    restart: always
+    network_mode: bridge
+    environment:
+      - VIRTUAL_HOST=www.gruppettoruhr.cc,gruppettoruhr.cc
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=www.gruppettoruhr.cc,gruppettoruhr.cc
