@@ -3,6 +3,7 @@ version: '3'
 services:
   gruppettoruhr.cc:
     build: '.'
+    image: gruppettoruhr-fe
     container_name: gruppettoruhr.cc
     restart: always
     network_mode: bridge
