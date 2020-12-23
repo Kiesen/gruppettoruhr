@@ -5,7 +5,19 @@ module.exports = {
   ],
   darkMode: false,
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        fadeInFast: 'fadeIn ease 2s',
+        fadeInMedium: 'fadeIn ease 4s',
+        fadeInSlow: 'fadeIn ease 6s',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+    },
   },
   variants: {
     extend: {},
