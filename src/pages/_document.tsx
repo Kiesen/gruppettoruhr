@@ -19,7 +19,12 @@ class ExtendedNextDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link rel="shortcut icon" href="favicons/favicon.ico" />
+          <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            media="all"
+            href="favicons/favicon.ico"
+          />
         </Head>
         <body>
           <Main />
