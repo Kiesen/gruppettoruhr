@@ -2,7 +2,7 @@ version: '3'
 
 services:
   gruppettoruhr.cc:
-    build: '.'
+    build: 'packages/website/.'
     image: gruppettoruhr-fe
     container_name: gruppettoruhr.cc
     restart: always
