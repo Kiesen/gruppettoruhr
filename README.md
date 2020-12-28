@@ -1,45 +1,64 @@
 # gruppettoruhr.cc
 
-This is the official repository of the gruppettoruhr cycling club. The repository is open source under the [LICENSE.md](LICENSE.md) license, feel free to contribute and make the website better for you and the club. Please follow the official [contribution guidelines](#Contributing).
+This is the official repository of the [gruppettoruhr cycling club](https://gruppettoruhr.cc). Feel free to contribute and enhance the website with more features that help our club, especially our members. If you want to contribute, please follow the official [contribution guidelines](#Contributing).
 
-## Development setup
+## Development environment
 
-This section should help you to setup a local development environment with a running instance of the gruppettoruhr.cc website.
+This section should help you to set up a local development environment with a running instance of the gruppettoruhr.cc website.
 
 ### Prerequisites
 
-The setup might run with other LTS or major versions releases of node and npm but the following version are recommended to avoid issues with the development environment.
+The environment might run with other LTS or major version releases of node and npm, but the following versions are recommended to avoid issues.
 
 - `node ^14.0.0`
 - `npm ^6.14.9`
 
-### Installation of dependencies
+### Installation of project dependencies
 
-If you fulfill the prerequisites you should be able to install all project dependencies with the following command:
+If you fulfil the prerequisites you should be able to install the development dependencies with the following command:
 
 ```bash
 npm install
 ```
 
-### Start of the development server
-
-After you have successfully installed all project dependencies you should be able to start a development server with the following command:
+The development dependencies are needed to bootstrap the project packages (e.g. website/backend). It is worth mentioning that we are using [lerna](https://lerna.js.org) to manage multiple independent node projects inside one repository. After a successful installation you should be able to install the package dependencies with the following command:
 
 ```bash
-npm run dev
+npm run bootstrap
 ```
 
-The server will run on your local machine on port `3000`. If you want to change the port you can easily do this by adding the `-- -p 3030` option followed by the port number you want to open (e.g. `npm run dev -- -p 3030`).
+### Start of the development server
 
-### Where to start
+After you have successfully installed all dependencies, you should be able to start a development server with the following command:
 
-An important note is that the gruppettoruhr website is powered by [next.js](https://nextjs.org), which means the project structure strictly follows the guidelines given by the [next.js](https://nextjs.org) team. This also means that you will find every page inside the `src/page` directory, which is a good place to start and try things out. Besides the `src/pages` directory we have a directory for all common components like the footer, it can be found under `src/components`.
+```bash
+npm run start
+```
+
+The server will run on port `3000`, and you can reach the frontend at [localhost:3000](http://localhost:3000).
+
+## Where to start
+
+The projects is split into two parts:
+
+1. Frontend - contains the website/frontend
+2. Backend - contains a headless CMS
+
+Depending on your idea/implementation you might need to update/add code in both packages.
+
+### Frontend
+
+The frontend makes use of the [next.js](https://nextjs.org) framework, which bundles [node.js](https://nodejs.org) and [react.js](https://reactjs.org) together to let you easily use techniques like server-side rendering. To make use of all features next.js provides, the folder structure and configuration must strictly match the [next.js](https://nextjs.org/docs/getting-started) guidelines and requirements. A good place to start is the [pages](packages/website/pages) folder inside the [website](packages/website) package, which lets you easily add a new page.
+
+### Backend
+
+In progress
 
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Please make sure to update tests as appropriate.
+Please make sure to update tests and the documentation as appropriate.
 
 ## Authors
 
@@ -47,4 +66,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT license - for details take a look at [LICENSE.md](LICENSE.md)
