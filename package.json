@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "clean": "lerna clean",
     "start": "npm run start:fe",
     "start:fe": "cd packages/website && npm run dev",
     "lint": "cd packages/website && npm run lint",
