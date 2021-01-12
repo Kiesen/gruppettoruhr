@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { FaStrava, FaInstagram } from 'react-icons/fa';
 
+import NavigationBar from '@src/components/NavigationBar';
 import KomootIcon from '@src/components/icons/KomootIcon';
 
 const Home: React.FC<{}> = () => {
@@ -11,8 +12,8 @@ const Home: React.FC<{}> = () => {
       <Head>
         <title>Gruppettoruhr - Home</title>
       </Head>
-      <div className="container mx-auto">
-        <main className="h-screen flex items-center justify-center flex-col">
+
+      <NavigationBar />
           <div className="m-5 animate-fadeInFast">
             <Image
               src="/logos/full-black.svg"
