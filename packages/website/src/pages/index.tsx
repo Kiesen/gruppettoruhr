@@ -1,4 +1,3 @@
-import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { FaStrava, FaInstagram } from 'react-icons/fa';
@@ -13,7 +12,7 @@ const Home: React.FC<{}> = () => {
       </Head>
       <div className="container mx-auto">
         <main className="h-screen flex items-center justify-center flex-col">
-          <div className="m-5 animate-fadeInFast">
+          <div className="m-5">
             <Image
               src="/logos/full-black.svg"
               alt="gruppettoruhr logo"
@@ -22,7 +21,7 @@ const Home: React.FC<{}> = () => {
               layout="intrinsic"
             />
           </div>
-          <span className="grid grid-cols-3 gap-6 animate-fadeInMedium">
+          <span className="grid grid-cols-3 gap-6">
             <a
               href="https://www.instagram.com/gruppettoruhr/"
               target="_blank"
