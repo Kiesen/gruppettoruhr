@@ -9,6 +9,7 @@
     "start:fe": "cd packages/website && npm run dev",
     "lint": "cd packages/website && npm run lint",
     "pretty-quick": "pretty-quick",
+    "version": "lerna version",
     "postinstall": "husky install"
   },
   "devDependencies": {
