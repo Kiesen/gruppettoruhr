@@ -7,7 +7,7 @@ const Nav: FC<{}> = () => (
     <Link href="/">
       <a>
         <Image
-          className="transition duration-300 ease-in-out transform hover:scale-110"
+          className="transition duration-300 ease-in-out transform hover:scale-125"
           src="/logos/gr-black.svg"
           alt="gruppettoruhr logo"
           width="50"
