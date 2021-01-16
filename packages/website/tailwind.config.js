@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = {
   purge: [
     './src/components/**/*.{ts,tsx,js,jsx}',
