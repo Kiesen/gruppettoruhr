@@ -7,7 +7,7 @@ import '@src/styles/globals.css';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <div className="container mx-auto animate-fadeInFast">
+    <div className="animate-fadeInFast">
       <Nav />
       <Component {...pageProps} />
     </div>

@@ -11,7 +11,7 @@ const Home: FC<{}> = () => {
       <Head>
         <title>Gruppettoruhr - Home</title>
       </Head>
-      <main className="container flex items-center justify-center flex-col h-screen">
+      <main className="flex items-center justify-center flex-col h-screen">
         <div className="m-5">
           <Image
             src="/logos/name-claim-black.svg"
