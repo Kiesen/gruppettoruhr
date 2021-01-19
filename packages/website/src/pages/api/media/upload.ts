@@ -1,15 +1,29 @@
+/**
+ * -- TODO --
+ * Remove eslint disable rule after adding req and res types
+ * that work both with next and multer.
+ */
 import { NextApiRequest, NextApiResponse } from 'next';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
 import s3 from '@src/utils/s3';
 
+import { createJSONPayload } from '@src/utils/api';
 import {
   FIELD_NAME,
   MIME_TYPES,
   MAX_FILES,
   MAX_FILE_SIZE,
 } from '@src/consts/upload';
-import { BUCKET_MEDIA_PREFIX, S3_BUCKET_ID } from '@src/consts/s3';
+import {
+  BUCKET_MEDIA_PREFIX,
+  S3_BUCKET_ID,
+  S3_BASE_URL,
+} from '@src/consts/s3';
+
+type NextApiRequestWithMediaProp = NextApiRequest & {
+  mediaURLS?: string[];
+};
 
 export const config = {
   api: {
@@ -25,8 +39,17 @@ const uploadMiddleware = multer({
     contentType(_, file, cb) {
       cb(null, file.mimetype);
     },
-    key(_, file, cb) {
-      cb(null, `${BUCKET_MEDIA_PREFIX}/${file.originalname}`);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    key(req: any, file, cb) {
+      const contentKey = `${BUCKET_MEDIA_PREFIX}/${file.originalname}`;
+
+      // Use the media array on the request object to add new media url
+      req.mediaURLS = [
+        ...req.mediaURLS,
+        `${S3_BASE_URL}/${contentKey}`,
+      ];
+
+      cb(null, contentKey);
     },
   }),
   fileFilter: (_, file, cb) => {
@@ -41,14 +64,35 @@ const uploadMiddleware = multer({
   },
 }).array(FIELD_NAME);
 
-export default (req: NextApiRequest, res: NextApiResponse): void => {
+const handler = (
+  req: NextApiRequestWithMediaProp,
+  res: NextApiResponse
+): void => {
   if (req.method === 'POST') {
+    req.mediaURLS = [];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     uploadMiddleware(req as any, res as any, (err) => {
-      if (err) console.error(err);
+      if (err) {
+        const payload = createJSONPayload<string>(req.method, {
+          error: 'Internal error during image upload',
+        });
+        res.status(500).send(payload);
+      }
+
+      const payload = createJSONPayload<{ mediaURLS: string[] }>(
+        req.method,
+        {
+          data: { mediaURLS: req.mediaURLS },
+        }
+      );
+      res.status(200).send(payload);
     });
-    res.status(200).send({});
   } else {
-    res.status(405).send({});
+    const payload = createJSONPayload<string>(req.method, {
+      error: 'Method not allows',
+    });
+    res.status(405).send(payload);
   }
 };
+
+export default handler;
