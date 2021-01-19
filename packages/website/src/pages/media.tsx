@@ -46,6 +46,7 @@ const dropzoneClasses = `
   ease-in-out 
   transform 
   hover:scale-105 
+  hover:bg-gray-100
   focus:outline-none
 `;
 
@@ -63,7 +64,6 @@ const actionButtonClasses = `
   ease-in-out 
   transform 
   hover:scale-105
-  hover:bg-gray-900
   focus:outline-none
 `;
 
@@ -129,7 +129,7 @@ const Media: FC<MediaProps> = ({ urls }) => {
                   className={`mb-4 ${actionButtonClasses}`}
                   onClick={copyToClipboard}
                 >
-                  <BiCopy className="h-5 w-5 mr-2" />
+                  <BiCopy className="h-5 w-5 mr-2 hidden sm:inline-block" />
                   Copy Link
                 </button>
                 <a
@@ -138,7 +138,8 @@ const Media: FC<MediaProps> = ({ urls }) => {
                   rel="noopener noreferrer"
                   className={`${actionButtonClasses}`}
                 >
-                  <BiWindowOpen className="h-5 w-5 mr-2" /> Open Image
+                  <BiWindowOpen className="h-5 w-5 mr-2 hidden sm:inline-block" />{' '}
+                  Open Image
                 </a>
               </div>
             </div>
