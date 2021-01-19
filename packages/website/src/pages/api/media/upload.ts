@@ -8,8 +8,7 @@ import {
   MIME_TYPES,
   MAX_FILES,
   MAX_FILE_SIZE,
-} from '@src/consts/mediaUpload';
-
+} from '@src/consts/upload';
 import { BUCKET_MEDIA_PREFIX, S3_BUCKET_ID } from '@src/consts/s3';
 
 export const config = {
@@ -42,10 +41,7 @@ const uploadMiddleware = multer({
   },
 }).array(FIELD_NAME);
 
-export default (
-  req: NextApiRequest,
-  res: NextApiResponse
-): void | Promise<void> => {
+export default (req: NextApiRequest, res: NextApiResponse): void => {
   if (req.method === 'POST') {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     uploadMiddleware(req as any, res as any, (err) => {
