@@ -1,20 +1,102 @@
-import { FC, useState } from 'react';
 import Head from 'next/head';
+import { FC, SyntheticEvent, useState } from 'react';
 import Dropzone, { DropzoneOptions } from 'react-dropzone';
-import { BsCloudUpload } from 'react-icons/bs';
+import { BiWindowOpen, BiCloudUpload, BiCopy } from 'react-icons/bi';
+import {
+  FIELD_NAME,
+  MIME_TYPES,
+  MAX_FILES,
+  MAX_FILE_SIZE,
+} from '@src/consts/upload';
+import { getStaticImageURLs } from '@src/utils/s3';
 
-const Media: FC<{}> = () => {
-  const dropzoneOptions: Partial<DropzoneOptions> = {
-    maxFiles: 4,
-    maxSize: 2e6, // 2e6 bytes <-> 2MB
-    accept: ['image/jpeg', 'image/png', 'image/gif'],
+type MediaProps = {
+  urls: string[];
+};
+
+export const getServerSideProps = async (): Promise<{
+  props: MediaProps;
+}> => {
+  const urls = await getStaticImageURLs();
+  console.log(urls);
+  return {
+    props: { urls },
+  };
+};
+
+const dropzoneOptions: Partial<DropzoneOptions> = {
+  maxFiles: MAX_FILES,
+  maxSize: MAX_FILE_SIZE,
+  accept: MIME_TYPES,
+};
+
+const dropzoneClasses = `
+  mb-12 
+  h-16
+  bg-white 
+  border-dotted
+  border-2
+  rounded-xl
+  flex flex-col 
+  justify-center 
+  cursor-pointer
+  items-center 
+  transition 
+  duration-300 
+  ease-in-out 
+  transform 
+  hover:scale-105 
+  focus:outline-none
+`;
+
+const actionButtonClasses = ` 
+  w-full 
+  p-1 
+  rounded-md
+  flex 
+  items-center 
+  justify-center 
+  bg-black 
+  text-white
+  transition 
+  duration-300 
+  ease-in-out 
+  transform 
+  hover:scale-105
+  hover:bg-gray-900
+  focus:outline-none
+`;
+
+const Media: FC<MediaProps> = ({ urls }) => {
+  const [images] = useState(urls);
+
+  const onDropImages = (acceptedFiles: File[]) => {
+    const formData = new FormData();
+
+    acceptedFiles.forEach((file) => {
+      formData.append(FIELD_NAME, file);
+    });
+    fetch(`api/media/upload`, {
+      method: 'POST',
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((images) => {
+        console.log(images);
+      })
+      .catch((error) => console.log(error));
   };
 
-  const [images, setImages] = useState(['', '']);
-
-  const onDropImage = (image: unknown) => {
-    console.log(image);
-    setImages([]);
+  const copyToClipboard = (
+    event: SyntheticEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    const textField = document.createElement('textarea');
+    textField.innerText = event.currentTarget.id;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand('copy');
+    textField.remove();
   };
 
   return (
@@ -23,43 +105,43 @@ const Media: FC<{}> = () => {
         <title>Gruppettoruhr - Media</title>
       </Head>
       <main className="container mx-auto pt-24">
-        <Dropzone onDrop={onDropImage} {...dropzoneOptions}>
+        <Dropzone onDrop={onDropImages} {...dropzoneOptions}>
           {({ getRootProps, getInputProps }) => (
-            <div
-              {...getRootProps()}
-              className="
-                mb-12 
-                h-12 
-                bg-black 
-                hover:bg-gray-700 
-                transition 
-                duration-300 
-                ease-in-out 
-                flex flex-col 
-                justify-center 
-                items-center 
-                cursor-pointer
-              "
-            >
+            <div {...getRootProps()} className={`${dropzoneClasses}`}>
               <input {...getInputProps()} />
-              <span className="flex items-center font-semibold text-white">
-                <BsCloudUpload className="h-6 w-6 mr-2" />
-                Drop or click to upload new images
+              <span className="flex items-center font-semibold">
+                <BiCloudUpload className="h-6 w-6 mr-2" />
+                Click or drop images for upload
               </span>
             </div>
           )}
         </Dropzone>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
-          {images.map((image, i) => (
-            <a
-              key={i}
-              className="cursor-pointer transition duration-300 ease-in-out transform hover:scale-110"
-              href={image}
-              target="_blank"
-              rel="noopener noreferrer"
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+          {images.map((imagePath) => (
+            <div
+              key={imagePath}
+              className="border p-4 rounded-xl flex flex-col items-center justify-between"
             >
-              <img src="wall_Background.jpg" />
-            </a>
+              <img src={imagePath} className="max-w-full max-h-36" />
+              <div className="w-full mt-8">
+                <button
+                  id={imagePath}
+                  className={`mb-4 ${actionButtonClasses}`}
+                  onClick={copyToClipboard}
+                >
+                  <BiCopy className="h-5 w-5 mr-2" />
+                  Copy Link
+                </button>
+                <a
+                  href={imagePath}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${actionButtonClasses}`}
+                >
+                  <BiWindowOpen className="h-5 w-5 mr-2" /> Open Image
+                </a>
+              </div>
+            </div>
           ))}
         </div>
       </main>
