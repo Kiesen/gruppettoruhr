@@ -1,7 +1,22 @@
+/**
+ * -- TODO --
+ * 1. Move all react toastify related common configs into a
+ * global file to reused in different places. Also remove
+ * inline config creation for better readability.
+ *
+ * 2. Replace fetch with react-query
+ */
 import Head from 'next/head';
 import { FC, SyntheticEvent, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import Dropzone, { DropzoneOptions } from 'react-dropzone';
-import { BiWindowOpen, BiCloudUpload, BiCopy } from 'react-icons/bi';
+import {
+  BiWindowOpen,
+  BiCloudUpload,
+  BiCopy,
+  BiInfoCircle,
+} from 'react-icons/bi';
+
 import {
   FIELD_NAME,
   MIME_TYPES,
@@ -18,7 +33,6 @@ export const getServerSideProps = async (): Promise<{
   props: MediaProps;
 }> => {
   const urls = await getStaticImageURLs();
-  console.log(urls);
   return {
     props: { urls },
   };
@@ -74,8 +88,13 @@ const Media: FC<MediaProps> = ({ urls }) => {
     const formData = new FormData();
 
     acceptedFiles.forEach((file) => {
+      // Check if file is already uploaded
       formData.append(FIELD_NAME, file);
     });
+    /**
+     *  -- TODO --
+     *  Replace with react query
+     */
     fetch(`api/media/upload`, {
       method: 'POST',
       body: formData,
@@ -97,6 +116,21 @@ const Media: FC<MediaProps> = ({ urls }) => {
     textField.select();
     document.execCommand('copy');
     textField.remove();
+    /**
+     * -- TODO --
+     * Move all config related properties into global file
+     */
+    toast(
+      () => (
+        <div className="flex items-center">
+          <BiInfoCircle className="h-6 w-6 mr-2" />
+          URL copied to clipboard
+        </div>
+      ),
+      {
+        type: 'success',
+      }
+    );
   };
 
   return (
@@ -145,6 +179,13 @@ const Media: FC<MediaProps> = ({ urls }) => {
             </div>
           ))}
         </div>
+        <ToastContainer
+          {...{
+            autoClose: 2500,
+            closeOnClick: true,
+            draggable: true,
+          }}
+        />
       </main>
     </>
   );
