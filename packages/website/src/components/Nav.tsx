@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const Nav: FC<{}> = () => (
-  <nav className="w-full mx-auto fixed bg-white border-2 border-gray-100 z-50">
+  <nav className="w-full mx-auto fixed bg-white border-b-2 border-gray-100 z-50">
     <div className="container mx-auto">
       <Link href="/">
         <a className="flex">
