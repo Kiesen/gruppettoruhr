@@ -12,8 +12,8 @@ dotenv.config({ path: '../../.env' });
  *
  * This seed file should only be used during development
  * and is not made for production! If you want to seed users
- * for a production environment you should use a different e.g.
- * manually or within a CI pipeline
+ * for a production environment you should use a different
+ * approach e.g. seeding manually or within a CI pipeline
  *
  */
 export async function seed(knex: Knex): Promise<void> {
