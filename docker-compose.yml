@@ -1,15 +1,22 @@
 version: '3'
 
 services:
-  gruppettoruhr.cc:
+  gruppettoruhr-website:
     build: 'packages/website/.'
-    image: gruppettoruhr-fe
-    container_name: gruppettoruhr.cc
+    image: gruppettoruhr-website
+    container_name: gruppettoruhr-website
     restart: always
     network_mode: bridge
-    volumes:
-      - ${HOST_VOLUME_PATH}/usr/src/app/assets
     environment:
       - VIRTUAL_HOST=www.gruppettoruhr.cc,gruppettoruhr.cc
       - VIRTUAL_PORT=3000
       - LETSENCRYPT_HOST=www.gruppettoruhr.cc,gruppettoruhr.cc
+
+  gruppettoruhr-database:
+    build: 'packages/database/.'
+    image: gruppettoruhr-database
+    container_name: gruppettoruhr-database
+    restart: always
+    network_mode: bridge
+    env_file:
+      - ./packages/database/.env
