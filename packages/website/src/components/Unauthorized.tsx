@@ -23,7 +23,7 @@ const Unauthorized: FC<UnauthorizedProps> = ({
         You are not authorized to see this content
       </h1>
       <span className="w-full">
-        <Link href="auth/login">
+        <Link href="/login">
           <a className={`mb-4 ${primaryActionButtonClasses}`}>
             Login
           </a>
