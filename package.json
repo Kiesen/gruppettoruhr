@@ -5,6 +5,12 @@
   "license": "MIT",
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "db:initialize": "cd packages/database && npm run migrate:latest",
+    "db:seed:make": "cd packages/database && npm run seed:make",
+    "db:seed:run": "cd packages/database && npm run seed:run",
+    "db:migrate:make": "cd packages/database && npm run migrate:make",
+    "db:migrate:latest": "cd packages/database && npm run migrate:latest",
+    "db:migrate:rollback": "cd packages/database && npm run migrate:rollback",
     "start": "npm run start:fe",
     "start:fe": "cd packages/website && npm run dev",
     "lint": "cd packages/website && npm run lint",
