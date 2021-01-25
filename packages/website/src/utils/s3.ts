@@ -4,7 +4,6 @@ import {
   S3_ENDPOINT,
   S3_BASE_URL,
   S3_BUCKET_ID,
-  BUCKET_MEDIA_PREFIX,
 } from '@src/consts/s3';
 
 const spacesEndpoint = new aws.Endpoint(S3_ENDPOINT);
@@ -15,23 +14,46 @@ const s3 = new aws.S3({
   secretAccessKey: process.env.DO_S3_SPACES_SECRET,
 });
 
-const getMediaURLS = async (): Promise<string[]> => {
+const getContentURLS = async (
+  bucketPrefix: string,
+  params?: Omit<
+    aws.S3.Types.ListObjectsV2Request,
+    'Bucket' | 'Prefix'
+  >,
+  sortIdentifier: 'asc' | 'desc' = 'asc'
+): Promise<string[]> => {
   return new Promise((resolve, reject) => {
     s3.listObjectsV2(
       {
         Bucket: S3_BUCKET_ID,
-        Prefix: BUCKET_MEDIA_PREFIX,
+        Prefix: bucketPrefix,
+        ...params,
       },
       (err, data) => {
         if (err) {
           return reject('Error while fetching data from S3 service.');
         } else {
-          const imageURLs = [];
+          const urls = [];
+          // Sort the returned content
+          data.Contents.sort((left, right) => {
+            if (sortIdentifier === 'asc') {
+              return (
+                right.LastModified.getTime() -
+                left.LastModified.getTime()
+              );
+            } else {
+              return (
+                left.LastModified.getTime() -
+                right.LastModified.getTime()
+              );
+            }
+          });
+          // Create urls for each content object
           data.Contents.forEach((content) => {
             if (content.Size > 0)
-              return imageURLs.push(`${S3_BASE_URL}/${content.Key}`);
+              return urls.push(`${S3_BASE_URL}/${content.Key}`);
           });
-          return resolve(imageURLs);
+          return resolve(urls);
         }
       }
     );
@@ -75,5 +97,5 @@ const uploadObject = async (
   });
 };
 
-export { getMediaURLS, deleteObject, uploadObject, s3 };
+export { getContentURLS, deleteObject, uploadObject, s3 };
 export default s3;
