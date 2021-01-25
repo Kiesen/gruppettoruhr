@@ -1,6 +1,7 @@
 import { NextPageContext } from 'next';
 import { AppProps } from 'next/app';
 import { FC } from 'react';
+import { ToastContainer } from 'react-toastify';
 import {
   Provider as AuthProvider,
   getSession,
@@ -8,6 +9,7 @@ import {
 } from 'next-auth/client';
 
 import Nav from '@src/components/Nav';
+import toastContainerProps from '@src/config/toastify';
 
 import 'tailwindcss/tailwind.css';
 import '@src/styles/globals.css';
@@ -34,6 +36,7 @@ const App: FC<ExtendedAppProps> = ({
       <div className="animate-fadeInFast">
         <Nav />
         <Component {...pageProps} />
+        <ToastContainer {...toastContainerProps} />
       </div>
     </AuthProvider>
   );
