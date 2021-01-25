@@ -6,7 +6,6 @@ import {
   S3_BUCKET_ID,
   BUCKET_MEDIA_PREFIX,
 } from '@src/consts/s3';
-import { ByteBuffer } from 'aws-sdk/clients/cloudtrail';
 
 const spacesEndpoint = new aws.Endpoint(S3_ENDPOINT);
 
@@ -57,14 +56,14 @@ const deleteObject = async (
 
 const uploadObject = async (
   key: string,
-  buffer: ByteBuffer,
+  body: aws.S3.Body,
   contentEncoding: string,
   contentType: string
 ): Promise<aws.S3.ManagedUpload.SendData> => {
   const params: aws.S3.PutObjectRequest = {
     Bucket: S3_BUCKET_ID,
     Key: key,
-    Body: buffer,
+    Body: body,
     ContentEncoding: contentEncoding,
     ContentType: contentType,
   };
