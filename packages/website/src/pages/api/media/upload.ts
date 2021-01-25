@@ -32,7 +32,7 @@ const mediaHandler = async (
       } else {
         const busboy = new Busboy({ headers: req.headers });
         const rejectedFiles: string[] = [];
-        const mediaURLS: string[] = [];
+        const acceptedFiles: string[] = [];
         let httpStatus = 200;
         let counter = 0;
 
@@ -52,17 +52,17 @@ const mediaHandler = async (
                 encoding,
                 mimetype
               );
-              mediaURLS.push(uploadData.Location);
+              acceptedFiles.push(uploadData.Location);
               counter = counter - 1;
-              console.log(counter, mediaURLS);
+              console.log(counter, acceptedFiles);
               if (counter === 0) {
                 if (httpStatus == 415) {
                   res.status(415);
-                  res.send({ mediaURLS, rejectedFiles });
+                  res.send({ acceptedFiles, rejectedFiles });
                   resolve();
                 } else {
                   res.status(200);
-                  res.send({ mediaURLS });
+                  res.send({ acceptedFiles });
                   resolve();
                 }
               }
