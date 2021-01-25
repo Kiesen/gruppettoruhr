@@ -3,7 +3,7 @@ export const dropzoneClasses = `
   h-16
   bg-white 
   border-2
-  border-dotted
+  border
   rounded-xl
   flex flex-col 
   justify-center 
@@ -14,6 +14,5 @@ export const dropzoneClasses = `
   ease-in-out 
   transform 
   hover:scale-105 
-  hover:bg-gray-100
   focus:outline-none
 `;
