@@ -13,6 +13,7 @@ type AlertProps = {
 export const ErrorAlert: FC<AlertProps> = ({ message }) => (
   <div
     className="
+    w-full
     alert 
     flex 
     flex-row 
@@ -40,6 +41,7 @@ export const ErrorAlert: FC<AlertProps> = ({ message }) => (
 export const SuccessAlert: FC<AlertProps> = ({ message }) => (
   <div
     className="
+    w-full
     alert 
     flex 
     flex-row 
@@ -67,6 +69,7 @@ export const SuccessAlert: FC<AlertProps> = ({ message }) => (
 export const WarningAlert: FC<AlertProps> = ({ message }) => (
   <div
     className="
+    w-full
     alert 
     flex 
     flex-row 
