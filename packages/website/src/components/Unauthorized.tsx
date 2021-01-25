@@ -11,7 +11,6 @@ type UnauthorizedProps = {
 };
 
 const Unauthorized: FC<UnauthorizedProps> = ({ classes }) => {
-  const fromURLEncode = encodeURIComponent(window.location.pathname);
   return (
     <div
       className={` h-full bg-gray-100 flex flex-col justify-center items-center ${classes}`}
@@ -21,7 +20,12 @@ const Unauthorized: FC<UnauthorizedProps> = ({ classes }) => {
           You are not authorized to see this content
         </h1>
         <span className="w-full">
-          <Link href={`/login?from=${fromURLEncode}`}>
+          <Link
+            href={{
+              pathname: 'login',
+              query: { from: window.location.pathname },
+            }}
+          >
             <a className={`mb-4 ${primaryActionButtonClasses}`}>
               Login
             </a>
