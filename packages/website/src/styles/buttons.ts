@@ -18,7 +18,7 @@ export const primaryActionButtonClasses = `
 export const secondaryActionButtonClasses = ` 
   w-full 
   p-1 
-  border-2
+  border
   border-gray-300
   bg-white
   rounded-md
