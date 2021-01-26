@@ -49,8 +49,6 @@ const Login: FC<LoginProps> = ({
     error: remoteError,
   });
 
-  console.log(callbackUrl);
-
   const onChangeField = (
     event: SyntheticEvent<HTMLInputElement>
   ): void => {

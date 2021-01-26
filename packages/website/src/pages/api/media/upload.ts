@@ -63,7 +63,6 @@ const mediaHandler = async (
               );
               acceptedFiles.push(uploadData.Location);
               counter = counter - 1;
-              console.log(counter, acceptedFiles);
               if (counter === 0) {
                 if (httpStatus == 415) {
                   res.status(415);
