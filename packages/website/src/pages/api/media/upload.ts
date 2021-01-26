@@ -5,13 +5,14 @@ import Busboy from 'busboy';
 
 import { uploadObject } from '@src/utils/s3';
 import { createJSONPayload } from '@src/utils/api';
-import { MIME_TYPES } from '@src/consts/upload';
-import { BUCKET_MEDIA_PREFIX } from '@src/consts/s3';
+import { MIME_TYPES, MAX_FILES } from '@src/consts/upload';
+import { BUCKET_MEDIA_PREFIX, S3_ACL_OPTIONS } from '@src/consts/s3';
 import {
   HTTP_OK,
   HTTP_UNAUTHORIZED,
   HTTP_UNSUPPORTED_MEDIA_TYPE,
   HTTP_METHOD_NOT_ALLOWED,
+  HTTP_INTERNAL_SERVER_ERROR,
 } from '@src/consts/status';
 
 export const config = {
@@ -40,46 +41,52 @@ const mediaHandler = async (
         res.status(HTTP_UNAUTHORIZED).send({});
         resolve();
       } else {
-        const busboy = new Busboy({ headers: req.headers });
-        const rejectedFiles: string[] = [];
-        const acceptedFiles: string[] = [];
-        let httpStatus = HTTP_OK;
-        let counter = 0;
-
+        const busboy = new Busboy({
+          headers: req.headers,
+          limits: { files: MAX_FILES },
+        });
         busboy.on(
           'file',
           async (_, file, filename, encoding, mimetype) => {
-            counter = counter + 1;
-            if (!MIME_TYPES.includes(mimetype)) {
-              httpStatus = HTTP_UNSUPPORTED_MEDIA_TYPE;
-              rejectedFiles.push(filename);
-            } else {
-              const uuid = uuidv4();
-
-              /**
-               * -- TODO --
-               * Create a common config for acl options
-               */
-              const uploadData = await uploadObject(
-                `${BUCKET_MEDIA_PREFIX}/${uuid}.${filename}`,
-                file,
-                encoding,
-                mimetype,
-                'public-read'
-              );
-              acceptedFiles.push(uploadData.Location);
-              counter = counter - 1;
-              if (counter === 0) {
-                if (httpStatus == HTTP_UNSUPPORTED_MEDIA_TYPE) {
-                  res.status(HTTP_UNSUPPORTED_MEDIA_TYPE);
-                  res.send({ acceptedFiles, rejectedFiles });
-                  resolve();
-                } else {
-                  res.status(HTTP_OK);
-                  res.send({ acceptedFiles });
-                  resolve();
-                }
+            console.log('test');
+            if (MIME_TYPES.includes(mimetype)) {
+              try {
+                const uuid = uuidv4();
+                const uploadData = await uploadObject(
+                  `${BUCKET_MEDIA_PREFIX}/${uuid}.${filename}`,
+                  file,
+                  encoding,
+                  mimetype,
+                  S3_ACL_OPTIONS.PUBLIC_READ
+                );
+                const payload = createJSONPayload<string>(
+                  req.method,
+                  {
+                    data: uploadData.Location,
+                  }
+                );
+                res.status(HTTP_OK);
+                res.send(payload);
+                resolve();
+              } catch {
+                const payload = createJSONPayload<string>(
+                  req.method,
+                  {
+                    error: 'File upload file',
+                  }
+                );
+                res.status(HTTP_INTERNAL_SERVER_ERROR);
+                res.send(payload);
+                resolve();
               }
+            } else {
+              const payload = createJSONPayload<string>(req.method, {
+                data: filename,
+              });
+
+              res.status(HTTP_UNSUPPORTED_MEDIA_TYPE);
+              res.send(payload);
+              resolve();
             }
           }
         );
