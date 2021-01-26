@@ -80,7 +80,8 @@ const uploadObject = async (
   key: string,
   body: aws.S3.Body,
   contentEncoding: string,
-  contentType: string
+  contentType: string,
+  acl: aws.S3.ObjectCannedACL = 'private'
 ): Promise<aws.S3.ManagedUpload.SendData> => {
   const params: aws.S3.PutObjectRequest = {
     Bucket: S3_BUCKET_ID,
@@ -88,6 +89,7 @@ const uploadObject = async (
     Body: body,
     ContentEncoding: contentEncoding,
     ContentType: contentType,
+    ACL: acl,
   };
   return new Promise((resolve, reject) => {
     s3.upload(params, (err, data) => {
