@@ -116,7 +116,7 @@ const Login: FC<LoginProps> = ({
                 <input
                   name="username"
                   type="text"
-                  className="w-full px-2 py-1 block border rounded-md focus:outline-none"
+                  className="w-full px-2 py-1 block border rounded-md focus:outline-none appearance-none"
                   onChange={onChangeField}
                 />
               </label>
@@ -125,7 +125,7 @@ const Login: FC<LoginProps> = ({
                 <input
                   name="password"
                   type="password"
-                  className="w-full px-2 py-1 block border rounded-md focus:outline-none"
+                  className="w-full px-2 py-1 block border rounded-md focus:outline-none appearance-none"
                   onChange={onChangeField}
                 />
               </label>
