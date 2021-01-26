@@ -14,6 +14,10 @@ export const config = {
   },
 };
 
+/**
+ * -- TODO --
+ * Create api response types that can also be used in the frontend
+ */
 const mediaHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
@@ -46,11 +50,16 @@ const mediaHandler = async (
             } else {
               const uuid = uuidv4();
 
+              /**
+               * -- TODO --
+               * Create a common config for acl options
+               */
               const uploadData = await uploadObject(
                 `${BUCKET_MEDIA_PREFIX}/${uuid}.${filename}`,
                 file,
                 encoding,
-                mimetype
+                mimetype,
+                'public-read'
               );
               acceptedFiles.push(uploadData.Location);
               counter = counter - 1;
