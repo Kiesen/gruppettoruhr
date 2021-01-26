@@ -7,6 +7,12 @@ import { uploadObject } from '@src/utils/s3';
 import { createJSONPayload } from '@src/utils/api';
 import { MIME_TYPES } from '@src/consts/upload';
 import { BUCKET_MEDIA_PREFIX } from '@src/consts/s3';
+import {
+  HTTP_OK,
+  HTTP_UNAUTHORIZED,
+  HTTP_UNSUPPORTED_MEDIA_TYPE,
+  HTTP_METHOD_NOT_ALLOWED,
+} from '@src/consts/status';
 
 export const config = {
   api: {
@@ -31,13 +37,13 @@ const mediaHandler = async (
     if (req.method === 'POST') {
       const session = getSession({ req });
       if (!session) {
-        res.status(401).send({});
+        res.status(HTTP_UNAUTHORIZED).send({});
         resolve();
       } else {
         const busboy = new Busboy({ headers: req.headers });
         const rejectedFiles: string[] = [];
         const acceptedFiles: string[] = [];
-        let httpStatus = 200;
+        let httpStatus = HTTP_OK;
         let counter = 0;
 
         busboy.on(
@@ -45,7 +51,7 @@ const mediaHandler = async (
           async (_, file, filename, encoding, mimetype) => {
             counter = counter + 1;
             if (!MIME_TYPES.includes(mimetype)) {
-              httpStatus = 415;
+              httpStatus = HTTP_UNSUPPORTED_MEDIA_TYPE;
               rejectedFiles.push(filename);
             } else {
               const uuid = uuidv4();
@@ -64,12 +70,12 @@ const mediaHandler = async (
               acceptedFiles.push(uploadData.Location);
               counter = counter - 1;
               if (counter === 0) {
-                if (httpStatus == 415) {
-                  res.status(415);
+                if (httpStatus == HTTP_UNSUPPORTED_MEDIA_TYPE) {
+                  res.status(HTTP_UNSUPPORTED_MEDIA_TYPE);
                   res.send({ acceptedFiles, rejectedFiles });
                   resolve();
                 } else {
-                  res.status(200);
+                  res.status(HTTP_OK);
                   res.send({ acceptedFiles });
                   resolve();
                 }
@@ -83,7 +89,7 @@ const mediaHandler = async (
       const payload = createJSONPayload<string>(req.method, {
         error: 'Method not allows',
       });
-      res.status(405).send(payload);
+      res.status(HTTP_METHOD_NOT_ALLOWED).send(payload);
       resolve();
     }
   });
