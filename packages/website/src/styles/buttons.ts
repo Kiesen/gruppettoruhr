@@ -13,7 +13,9 @@ export const primaryActionButtonClasses = `
   transform 
   hover:scale-105
   focus:outline-none
-`;
+`
+  .replace(/\s+/g, ' ')
+  .trim();
 
 export const secondaryActionButtonClasses = ` 
   w-full 
@@ -31,4 +33,6 @@ export const secondaryActionButtonClasses = `
   transform 
   hover:scale-105
   focus:outline-none
-`;
+`
+  .replace(/\s+/g, ' ')
+  .trim();
