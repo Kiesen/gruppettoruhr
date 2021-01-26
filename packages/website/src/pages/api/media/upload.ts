@@ -65,8 +65,7 @@ const mediaHandler = async (
                     data: uploadData.Location,
                   }
                 );
-                res.status(HTTP_OK);
-                res.send(payload);
+                res.status(HTTP_OK).send(payload);
                 resolve();
               } catch {
                 const payload = createJSONPayload<string>(
@@ -75,8 +74,7 @@ const mediaHandler = async (
                     error: 'File upload file',
                   }
                 );
-                res.status(HTTP_INTERNAL_SERVER_ERROR);
-                res.send(payload);
+                res.status(HTTP_INTERNAL_SERVER_ERROR).send(payload);
                 resolve();
               }
             } else {
@@ -84,8 +82,7 @@ const mediaHandler = async (
                 data: filename,
               });
 
-              res.status(HTTP_UNSUPPORTED_MEDIA_TYPE);
-              res.send(payload);
+              res.status(HTTP_UNSUPPORTED_MEDIA_TYPE).send(payload);
               resolve();
             }
           }
