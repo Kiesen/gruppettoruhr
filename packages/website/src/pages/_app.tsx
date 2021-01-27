@@ -1,6 +1,7 @@
 import { NextPageContext } from 'next';
 import { AppProps } from 'next/app';
 import { FC } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { ToastContainer } from 'react-toastify';
 import {
   Provider as AuthProvider,
@@ -26,6 +27,8 @@ export const getServerSideProps = async (
   return { props: { session } };
 };
 
+const queryClient = new QueryClient();
+
 const App: FC<ExtendedAppProps> = ({
   Component,
   session,
@@ -33,11 +36,13 @@ const App: FC<ExtendedAppProps> = ({
 }) => {
   return (
     <AuthProvider session={session}>
-      <div className="animate-fadeInFast">
-        <Nav />
-        <Component {...pageProps} />
-        <ToastContainer {...toastContainerProps} />
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <div className="animate-fadeInFast">
+          <Nav />
+          <Component {...pageProps} />
+          <ToastContainer {...toastContainerProps} />
+        </div>
+      </QueryClientProvider>
     </AuthProvider>
   );
 };
