@@ -1,9 +1,17 @@
-/**
- * Create a JSON payload object which adapts
- * the Google JSON style guide.
- */
+import { JSONDataPayload, JSONErrorPayload } from '@src/types/api';
+
 export const createJSONPayload = <T>(
   method: string,
-  { data, error }: { data?: T; error?: T }
-): { method: string; errors: T } | { method: string; data: T } =>
-  error ? { method, errors: error } : { method, data: data };
+  data: T
+): JSONDataPayload<T> => ({
+  method,
+  data,
+});
+
+export const createJSONErrorPayload = <T>(
+  method: string,
+  errors: T
+): JSONErrorPayload<T> => ({
+  method,
+  errors,
+});
