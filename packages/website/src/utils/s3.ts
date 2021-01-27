@@ -6,6 +6,8 @@ import {
   S3_BUCKET_ID,
 } from '@src/consts/s3';
 
+import { MediaContentURL } from '@src/types/media';
+
 const spacesEndpoint = new aws.Endpoint(S3_ENDPOINT);
 
 const s3 = new aws.S3({
@@ -21,7 +23,7 @@ const getContentURLS = async (
     'Bucket' | 'Prefix'
   >,
   sortIdentifier: 'asc' | 'desc' = 'asc'
-): Promise<string[]> => {
+): Promise<MediaContentURL[]> => {
   return new Promise((resolve, reject) => {
     s3.listObjectsV2(
       {
@@ -33,7 +35,7 @@ const getContentURLS = async (
         if (err) {
           return reject('Error while fetching data from S3 service.');
         } else {
-          const urls = [];
+          const urls: MediaContentURL[] = [];
           // Sort the returned content
           data.Contents.sort((left, right) => {
             if (sortIdentifier === 'asc') {
@@ -51,7 +53,10 @@ const getContentURLS = async (
           // Create urls for each content object
           data.Contents.forEach((content) => {
             if (content.Size > 0)
-              return urls.push(`${S3_BASE_URL}/${content.Key}`);
+              return urls.push({
+                url: `${S3_BASE_URL}/${content.Key}`,
+                lastModified: content.LastModified,
+              });
           });
           return resolve(urls);
         }
