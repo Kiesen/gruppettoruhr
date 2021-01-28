@@ -1,7 +1,7 @@
 import { NextPageContext } from 'next';
 import { AppProps } from 'next/app';
 import { FC } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { ToastContainer } from 'react-toastify';
 import {
@@ -12,6 +12,7 @@ import {
 
 import Nav from '@src/components/Nav';
 import toastContainerProps from '@src/config/toastify';
+import queryClient from '@src/config/queryClient';
 
 import 'tailwindcss/tailwind.css';
 import '@src/styles/globals.css';
@@ -27,8 +28,6 @@ export const getServerSideProps = async (
   const session = await getSession(context);
   return { props: { session } };
 };
-
-const queryClient = new QueryClient();
 
 const App: FC<ExtendedAppProps> = ({
   Component,
