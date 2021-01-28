@@ -3,7 +3,7 @@ import { JSONPayload } from '@src/types/api';
 export function createJSONPayload<T = null, U = null>(
   method: string,
   data: T = null,
-  errors: U
+  errors: U = null
 ): JSONPayload<T, U> {
   return {
     method,
