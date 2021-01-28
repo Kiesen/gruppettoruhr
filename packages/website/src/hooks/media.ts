@@ -45,9 +45,11 @@ const uploadMediaContent = async (
 };
 
 const deleteMediaContent = async (key: string): Promise<string> => {
-  // The key of a s3 content object contains also a path.
-  // We need to remove the path here to get the filename that
-  // we want to remove.
+  /**
+   * The key of a s3 content object contains also a path.
+   * We need to remove the path here to get the filename that
+   * we want to remove.
+   */
   const id = key.substring(key.lastIndexOf('/') + 1, key.length);
 
   const response = await fetch(`${MEDIA}/${id}`, {

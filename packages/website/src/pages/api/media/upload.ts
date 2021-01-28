@@ -64,6 +64,7 @@ const mediaUploadHandler = async (
                 const payload = createJSONPayload<MediaContentURL>(
                   req.method,
                   {
+                    key: uploadData.Key,
                     url: uploadData.Location,
                     lastModified: new Date(),
                   }
