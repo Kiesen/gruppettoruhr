@@ -8,10 +8,6 @@ export const primaryActionButtonClasses = `
   bg-black 
   text-white
   transition 
-  duration-300 
-  ease-in-out 
-  transform 
-  hover:scale-105
   focus:outline-none
 `
   .replace(/\s+/g, ' ')
@@ -27,12 +23,39 @@ export const secondaryActionButtonClasses = `
   flex 
   items-center 
   justify-center 
+  focus:outline-none
+`
+  .replace(/\s+/g, ' ')
+  .trim();
+
+export const dangerActionButtonClasses = ` 
+  w-full 
+  p-1 
+  bg-red-500
+  rounded-md
+  text-white
+  flex 
+  items-center 
+  justify-center 
+  focus:outline-none
+`
+  .replace(/\s+/g, ' ')
+  .trim();
+
+export const hoverScale = `
   transition 
   duration-300 
   ease-in-out 
   transform 
   hover:scale-105
-  focus:outline-none
+`
+  .replace(/\s+/g, ' ')
+  .trim();
+
+export const transitionColors = `
+  transition-colors
+  duration-300
+  ease-in-out
 `
   .replace(/\s+/g, ' ')
   .trim();
