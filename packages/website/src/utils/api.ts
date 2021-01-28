@@ -1,17 +1,13 @@
-import { JSONDataPayload, JSONErrorPayload } from '@src/types/api';
+import { JSONPayload } from '@src/types/api';
 
-export const createJSONPayload = <T>(
+export function createJSONPayload<T = null, U = null>(
   method: string,
-  data: T
-): JSONDataPayload<T> => ({
-  method,
-  data,
-});
-
-export const createJSONErrorPayload = <T>(
-  method: string,
-  errors: T
-): JSONErrorPayload<T> => ({
-  method,
-  errors,
-});
+  data: T = null,
+  errors: U
+): JSONPayload<T, U> {
+  return {
+    method,
+    data,
+    errors,
+  };
+}

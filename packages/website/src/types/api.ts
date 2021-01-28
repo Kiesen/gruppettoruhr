@@ -1,9 +1,5 @@
-export type JSONDataPayload<T> = {
+export type JSONPayload<T = {}, U = null> = {
   method: string;
-  data: T;
-};
-
-export type JSONErrorPayload<T> = {
-  method: string;
-  errors: T;
+  errors?: U;
+  data?: T;
 };
