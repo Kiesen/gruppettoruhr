@@ -54,6 +54,7 @@ const getContentURLS = async (
           data.Contents.forEach((content) => {
             if (content.Size > 0)
               return urls.push({
+                key: content.Key,
                 url: `${S3_BASE_URL}/${content.Key}`,
                 lastModified: content.LastModified,
               });
@@ -66,11 +67,11 @@ const getContentURLS = async (
 };
 
 const deleteObject = async (
-  path: string
+  key: string
 ): Promise<aws.S3.DeleteObjectOutput> => {
   const params: aws.S3.DeleteObjectRequest = {
     Bucket: S3_BUCKET_ID,
-    Key: path,
+    Key: key,
   };
 
   return new Promise((resolve, reject) => {
