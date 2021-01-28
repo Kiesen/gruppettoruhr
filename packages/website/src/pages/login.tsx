@@ -8,6 +8,7 @@ import { ErrorAlert } from '@components/Alerts';
 import {
   primaryActionButtonClasses,
   secondaryActionButtonClasses,
+  hoverScale,
 } from '@src/styles/buttons';
 
 type LoginProps = {
@@ -132,13 +133,15 @@ const Login: FC<LoginProps> = ({
             </div>
             <div className="w-full py-8 flex flex-col items-center">
               <button
-                className={`mb-2 ${primaryActionButtonClasses}`}
+                className={`mb-2 ${primaryActionButtonClasses} ${hoverScale}`}
                 onClick={loginHandler}
               >
                 Login
               </button>
               <Link href="/">
-                <a className={`${secondaryActionButtonClasses}`}>
+                <a
+                  className={`${secondaryActionButtonClasses} ${hoverScale}`}
+                >
                   Home
                 </a>
               </Link>
