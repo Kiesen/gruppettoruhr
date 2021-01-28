@@ -2,10 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/client';
 
 import { getContentURLS } from '@src/utils/s3';
-import {
-  createJSONPayload,
-  createJSONErrorPayload,
-} from '@src/utils/api';
+import { createJSONPayload } from '@src/utils/api';
 import { BUCKET_MEDIA_PREFIX } from '@src/consts/s3';
 import {
   HTTP_OK,
@@ -13,10 +10,7 @@ import {
   HTTP_METHOD_NOT_ALLOWED,
 } from '@src/consts/status';
 
-import {
-  MediaContentURL,
-  MediaContentErrors,
-} from '@src/types/media';
+import { MediaContentURL, MediaContentError } from '@src/types/media';
 
 const mediaHandler = async (
   req: NextApiRequest,
@@ -25,8 +19,9 @@ const mediaHandler = async (
   if (req.method === 'GET') {
     const session = getSession({ req });
     if (!session) {
-      const payload = createJSONErrorPayload<MediaContentErrors>(
+      const payload = createJSONPayload<null, MediaContentError>(
         req.method,
+        null,
         'Unauthorized'
       );
       res.status(HTTP_UNAUTHORIZED).send(payload);
@@ -39,9 +34,10 @@ const mediaHandler = async (
       res.status(HTTP_OK).send(payload);
     }
   } else {
-    const payload = createJSONErrorPayload<MediaContentErrors>(
+    const payload = createJSONPayload<null, MediaContentError>(
       req.method,
-      'Method not allowed'
+      null,
+      'Unauthorized'
     );
     res.status(HTTP_METHOD_NOT_ALLOWED).send(payload);
   }
