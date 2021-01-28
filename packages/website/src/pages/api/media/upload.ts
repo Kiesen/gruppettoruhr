@@ -15,22 +15,20 @@ import {
   HTTP_INTERNAL_SERVER_ERROR,
 } from '@src/consts/status';
 
+import { MediaContentURL, MediaContentError } from '@src/types/media';
+
 export const config = {
   api: {
     bodyParser: false,
   },
 };
 
-/**
- * -- TODO --
- * Create api response types that can also be used in the frontend
- */
-const mediaHandler = async (
+const mediaUploadHandler = async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
   /**
-   * We need to return a promise to avoid that nextjs report a warning.
+   * We need to return a promise to avoid that nextjs reports a warning.
    * The reason for this is the nested async function call on the
    * busboy on file event.
    */
@@ -38,7 +36,12 @@ const mediaHandler = async (
     if (req.method === 'POST') {
       const session = getSession({ req });
       if (!session) {
-        res.status(HTTP_UNAUTHORIZED).send({});
+        const payload = createJSONPayload<null, MediaContentError>(
+          req.method,
+          null,
+          'Unauthorized'
+        );
+        res.status(HTTP_UNAUTHORIZED).send(payload);
         resolve();
       } else {
         const busboy = new Busboy({
@@ -48,7 +51,6 @@ const mediaHandler = async (
         busboy.on(
           'file',
           async (_, file, filename, encoding, mimetype) => {
-            console.log('test');
             if (MIME_TYPES.includes(mimetype)) {
               try {
                 const uuid = uuidv4();
@@ -59,29 +61,28 @@ const mediaHandler = async (
                   mimetype,
                   S3_ACL_OPTIONS.PUBLIC_READ
                 );
-                const payload = createJSONPayload<string>(
+                const payload = createJSONPayload<MediaContentURL>(
                   req.method,
                   {
-                    data: uploadData.Location,
+                    url: uploadData.Location,
+                    lastModified: new Date(),
                   }
                 );
                 res.status(HTTP_OK).send(payload);
                 resolve();
               } catch {
-                const payload = createJSONPayload<string>(
-                  req.method,
-                  {
-                    error: 'File upload file',
-                  }
-                );
+                const payload = createJSONPayload<
+                  null,
+                  MediaContentError
+                >(req.method, null, 'File upload failed');
                 res.status(HTTP_INTERNAL_SERVER_ERROR).send(payload);
                 resolve();
               }
             } else {
-              const payload = createJSONPayload<string>(req.method, {
-                data: filename,
-              });
-
+              const payload = createJSONPayload<
+                null,
+                MediaContentError
+              >(req.method, null, 'Mime type is not supported');
               res.status(HTTP_UNSUPPORTED_MEDIA_TYPE).send(payload);
               resolve();
             }
@@ -90,13 +91,15 @@ const mediaHandler = async (
         req.pipe(busboy);
       }
     } else {
-      const payload = createJSONPayload<string>(req.method, {
-        error: 'Method not allows',
-      });
+      const payload = createJSONPayload<null, MediaContentError>(
+        req.method,
+        null,
+        'Method not allowed'
+      );
       res.status(HTTP_METHOD_NOT_ALLOWED).send(payload);
       resolve();
     }
   });
 };
 
-export default mediaHandler;
+export default mediaUploadHandler;
