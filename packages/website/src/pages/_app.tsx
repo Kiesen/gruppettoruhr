@@ -2,6 +2,7 @@ import { NextPageContext } from 'next';
 import { AppProps } from 'next/app';
 import { FC } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { ToastContainer } from 'react-toastify';
 import {
   Provider as AuthProvider,
@@ -42,6 +43,7 @@ const App: FC<ExtendedAppProps> = ({
           <Component {...pageProps} />
           <ToastContainer {...toastContainerProps} />
         </div>
+        <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider>
     </AuthProvider>
   );
