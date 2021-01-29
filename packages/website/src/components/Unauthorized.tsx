@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {
   primaryActionButtonClasses,
   secondaryActionButtonClasses,
+  hoverScale,
 } from '@src/styles/buttons';
 
 type UnauthorizedProps = {
@@ -26,12 +27,16 @@ const Unauthorized: FC<UnauthorizedProps> = ({ classes }) => {
               query: { from: window.location.pathname },
             }}
           >
-            <a className={`mb-4 ${primaryActionButtonClasses}`}>
+            <a
+              className={`mb-4 ${primaryActionButtonClasses} ${hoverScale}`}
+            >
               Login
             </a>
           </Link>
           <Link href="/">
-            <a className={`mb-4 ${secondaryActionButtonClasses}`}>
+            <a
+              className={`mb-4 ${secondaryActionButtonClasses} ${hoverScale}`}
+            >
               Home
             </a>
           </Link>
