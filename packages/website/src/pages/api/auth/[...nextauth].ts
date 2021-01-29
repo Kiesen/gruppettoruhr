@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth, { InitOptions } from 'next-auth';
 import Providers from 'next-auth/providers';
-import bcrypt from 'bcrypt';
 import querystring from 'querystring';
 
 const options: InitOptions = {
@@ -31,13 +30,17 @@ const options: InitOptions = {
          * data and if we even need to. For now the functionality is secure
          * enough as we don't store and need to hide any sensitive data.
          */
-        const passwordMatched = await bcrypt.compare(
+        const usernameMatches =
+          credentials['username'] === process.env.TMP_USER;
+        const passwordMatches =
+          credentials['password'] === process.env.TMP_PASSWORD;
+
+        console.log(
+          credentials,
           credentials['password'],
           process.env.TMP_PASSWORD
         );
-        const usernameMatches =
-          credentials['username'] === process.env.TMP_USER;
-        if (passwordMatched && usernameMatches) {
+        if (usernameMatches && passwordMatches) {
           return Promise.resolve({
             id: 1,
             name: 'Gruppettoruhr',
