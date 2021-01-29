@@ -1,7 +1,9 @@
+/* eslint-disable */
 module.exports = {
   purge: [
     './src/components/**/*.{ts,tsx,js,jsx}',
     './src/pages/**/*.{ts,tsx,js,jsx}',
+    './src/styles/**/*.{ts,tsx,js,jsx}',
   ],
   darkMode: false,
   theme: {
@@ -16,6 +18,15 @@ module.exports = {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
+      },
+    },
+    container: {
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
       },
     },
   },

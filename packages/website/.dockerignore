@@ -1,0 +1,6 @@
+.next
+.prettierignore
+.prettierrc
+.dockerignore
+Dockerfile
+node_modules
