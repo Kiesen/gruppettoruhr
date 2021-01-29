@@ -17,7 +17,7 @@ const mediaHandler = async (
   res: NextApiResponse
 ): Promise<void> => {
   if (req.method === 'GET') {
-    const session = getSession({ req });
+    const session = await getSession({ req });
     if (!session) {
       const payload = createJSONPayload<null, MediaContentError>(
         req.method,

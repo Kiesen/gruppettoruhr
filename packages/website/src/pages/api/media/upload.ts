@@ -34,63 +34,66 @@ const mediaUploadHandler = async (
    */
   return new Promise((resolve) => {
     if (req.method === 'POST') {
-      const session = getSession({ req });
-      if (!session) {
-        const payload = createJSONPayload<null, MediaContentError>(
-          req.method,
-          null,
-          'Unauthorized'
-        );
-        res.status(HTTP_UNAUTHORIZED).send(payload);
-        resolve();
-      } else {
-        const busboy = new Busboy({
-          headers: req.headers,
-          limits: { files: MAX_FILES },
-        });
-        busboy.on(
-          'file',
-          async (_, file, filename, encoding, mimetype) => {
-            if (MIME_TYPES.includes(mimetype)) {
-              try {
-                const uuid = uuidv4();
-                const uploadData = await uploadObject(
-                  `${BUCKET_MEDIA_PREFIX}/${uuid}.${filename}`,
-                  file,
-                  encoding,
-                  mimetype,
-                  S3_ACL_OPTIONS.PUBLIC_READ
-                );
-                const payload = createJSONPayload<MediaContentURL>(
-                  req.method,
-                  {
-                    key: uploadData.Key,
-                    url: uploadData.Location,
-                    lastModified: new Date(),
-                  }
-                );
-                res.status(HTTP_OK).send(payload);
-                resolve();
-              } catch {
+      getSession({ req }).then((session) => {
+        if (!session) {
+          const payload = createJSONPayload<null, MediaContentError>(
+            req.method,
+            null,
+            'Unauthorized'
+          );
+          res.status(HTTP_UNAUTHORIZED).send(payload);
+          resolve();
+        } else {
+          const busboy = new Busboy({
+            headers: req.headers,
+            limits: { files: MAX_FILES },
+          });
+          busboy.on(
+            'file',
+            async (_, file, filename, encoding, mimetype) => {
+              if (MIME_TYPES.includes(mimetype)) {
+                try {
+                  const uuid = uuidv4();
+                  const uploadData = await uploadObject(
+                    `${BUCKET_MEDIA_PREFIX}/${uuid}.${filename}`,
+                    file,
+                    encoding,
+                    mimetype,
+                    S3_ACL_OPTIONS.PUBLIC_READ
+                  );
+                  const payload = createJSONPayload<MediaContentURL>(
+                    req.method,
+                    {
+                      key: uploadData.Key,
+                      url: uploadData.Location,
+                      lastModified: new Date(),
+                    }
+                  );
+                  res.status(HTTP_OK).send(payload);
+                  resolve();
+                } catch {
+                  const payload = createJSONPayload<
+                    null,
+                    MediaContentError
+                  >(req.method, null, 'File upload failed');
+                  res
+                    .status(HTTP_INTERNAL_SERVER_ERROR)
+                    .send(payload);
+                  resolve();
+                }
+              } else {
                 const payload = createJSONPayload<
                   null,
                   MediaContentError
-                >(req.method, null, 'File upload failed');
-                res.status(HTTP_INTERNAL_SERVER_ERROR).send(payload);
+                >(req.method, null, 'Mime type is not supported');
+                res.status(HTTP_UNSUPPORTED_MEDIA_TYPE).send(payload);
                 resolve();
               }
-            } else {
-              const payload = createJSONPayload<
-                null,
-                MediaContentError
-              >(req.method, null, 'Mime type is not supported');
-              res.status(HTTP_UNSUPPORTED_MEDIA_TYPE).send(payload);
-              resolve();
             }
-          }
-        );
-        req.pipe(busboy);
-      }
+          );
+          req.pipe(busboy);
+        }
+      });
     } else {
       const payload = createJSONPayload<null, MediaContentError>(
         req.method,

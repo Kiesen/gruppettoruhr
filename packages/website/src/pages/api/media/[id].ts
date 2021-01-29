@@ -23,7 +23,7 @@ const mediaContentHandler = async (
   } = req;
 
   if (req.method === 'DELETE') {
-    const session = getSession({ req });
+    const session = await getSession({ req });
     if (!session) {
       const payload = createJSONPayload<null, MediaContentError>(
         req.method,
