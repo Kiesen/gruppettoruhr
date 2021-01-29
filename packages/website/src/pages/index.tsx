@@ -1,26 +1,23 @@
-import React from 'react';
+import { FC } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { FaStrava, FaInstagram } from 'react-icons/fa';
 
-import NavigationBar from '@src/components/NavigationBar';
 import KomootIcon from '@src/components/icons/KomootIcon';
 
-const Home: React.FC<{}> = () => {
+const Home: FC<{}> = () => {
   return (
     <>
       <Head>
         <title>Gruppettoruhr - Home</title>
       </Head>
-
-      <NavigationBar />
-      <main className="h-screen flex items-center justify-center flex-col">
+      <main className="flex items-center justify-center flex-col h-screen">
         <div className="m-5">
           <Image
-            src="/logos/full-black.svg"
+            src="/logos/name-claim-black.svg"
             alt="gruppettoruhr logo"
             width="300"
-            height="250"
+            height="80"
             layout="intrinsic"
           />
         </div>

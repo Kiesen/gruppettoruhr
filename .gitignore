@@ -161,3 +161,6 @@ Temporary Items
 
 # vercel
 .vercel
+
+# Ignore all files that get add during development to the packages/assets directory
+packages/website/assets 
