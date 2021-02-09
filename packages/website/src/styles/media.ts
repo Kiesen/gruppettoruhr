@@ -15,4 +15,6 @@ export const dropzoneClasses = `
   transform 
   hover:scale-105 
   focus:outline-none
-`;
+`
+  .replace(/\s+/g, ' ')
+  .trim();
