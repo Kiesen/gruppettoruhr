@@ -17,7 +17,7 @@ class ExtendedNextDocument extends Document {
 
   render(): JSX.Element {
     return (
-      <Html lang="en">
+      <Html lang="de">
         <Head>
           <link
             rel="shortcut icon"
