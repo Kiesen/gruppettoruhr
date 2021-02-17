@@ -14,9 +14,11 @@ export const scroll = `
   bg-white
   transition-colors
   duration-300
+  border
+  border-gray-100
   text-black
 `
   .replace(/\s+/g, ' ')
   .trim();
 
-export const scrollOffset = 36;
+export const scrollOffset = 31;
