@@ -8,6 +8,11 @@ module.exports = {
   darkMode: false,
   theme: {
     extend: {
+      colors: {
+        orange: {
+          DEFAULT: '#fc4c02',
+        },
+      },
       animation: {
         fadeInFast: 'fadeIn ease 2s',
         fadeInMedium: 'fadeIn ease 4s',
