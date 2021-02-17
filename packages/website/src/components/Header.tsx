@@ -29,7 +29,7 @@ const Header: FC<{}> = () => {
             />
           </a>
         </Link>
-        <div className="grid grid-cols-3 gap-6 text-lg font-bold uppercase">
+        <div className="hidden md:grid grid-cols-3 gap-6 text-lg font-bold uppercase">
           <Link href="/">
             <a>Rides</a>
           </Link>
