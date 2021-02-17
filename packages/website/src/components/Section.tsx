@@ -39,12 +39,14 @@ const Section: FC<SectionProps> = ({
         : null
     }
   >
-    {heading && (
-      <h2 className="w-full mb-6 text-center text-3xl font-semibold uppercase">
-        {heading}
-      </h2>
-    )}
-    {children}
+    <div className="container mx-auto">
+      {heading && (
+        <h2 className="w-full mb-6 text-center text-3xl font-semibold uppercase">
+          {heading}
+        </h2>
+      )}
+      {children}
+    </div>
   </section>
 );
 
