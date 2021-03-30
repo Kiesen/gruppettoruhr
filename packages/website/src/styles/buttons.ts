@@ -28,6 +28,20 @@ export const secondaryActionButtonClasses = `
   .replace(/\s+/g, ' ')
   .trim();
 
+export const transparentActionButtonClasses = ` 
+  w-full 
+  p-1 
+  border
+  border-gray-300
+  rounded-md
+  flex 
+  items-center 
+  justify-center 
+  focus:outline-none
+`
+  .replace(/\s+/g, ' ')
+  .trim();
+
 export const dangerActionButtonClasses = ` 
   w-full 
   p-1 

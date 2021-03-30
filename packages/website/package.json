@@ -15,6 +15,7 @@
     "aws-sdk": "^2.828.0",
     "bcrypt": "^5.0.0",
     "busboy": "^0.3.1",
+    "google-polyline": "^1.0.3",
     "next": "^10.0.4",
     "next-auth": "^3.1.0",
     "postcss": "^8.2.1",

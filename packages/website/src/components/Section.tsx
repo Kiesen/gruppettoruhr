@@ -7,6 +7,7 @@ import {
 } from '@src/styles/section';
 
 type SectionProps = {
+  id?: string;
   heading?: string;
   backgroundColor?: string;
   backgroundImagePath?: string;
@@ -20,6 +21,7 @@ type SectionProps = {
  */
 const Section: FC<SectionProps> = ({
   children,
+  id,
   heading,
   backgroundColor,
   backgroundImagePath,
@@ -38,6 +40,7 @@ const Section: FC<SectionProps> = ({
           }
         : null
     }
+    id={id}
   >
     <div className="container mx-auto">
       {heading && (

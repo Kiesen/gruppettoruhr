@@ -1,5 +1,5 @@
 # Image for build phase 
-FROM node:latest AS build
+FROM node:14.15.3 AS build
 WORKDIR /usr/src/app
 COPY . /usr/src/app/
 RUN BUILD="true" npm install

@@ -1,0 +1,83 @@
+{
+  "community": null,
+  "rides": {
+    "intro": "Von <b class=\"font-bold\">April</b> bis <b class=\"font-bold\">Oktober</b> fahren wir regelmäßig durchs Ruhrtal und Rheinland. Dabei ist es uns wichtig <b class=\"font-bold\">zusammen</b> loszufahren und anzukommen.",
+    "content": [
+      {
+        "id": "tue",
+        "date": "Dienstags 18:00 Uhr",
+        "title": "Roller Roller",
+        "groups": [
+          {
+            "title": "Gruppe Eins",
+            "details": "2:15h - 100 HM - 30-32 km/h"
+          }
+        ]
+      },
+      {
+        "id": "thu",
+        "date": "Donnerstags 18:00 Uhr",
+        "title": "Belgian Waffels",
+        "groups": [
+          {
+            "title": "Gruppe Eins",
+            "details": "2:25h - 300 HM - 26 km/h"
+          },
+          {
+            "title": "Gruppe Zwei",
+            "details": "2:15h - 360 HM - 30-32 km/h"
+          }
+        ]
+      },
+      {
+        "id": "sun",
+        "date": "Sonntags 10:00 Uhr",
+        "title": "Breakfast Club",
+        "groups": [
+          {
+            "title": "Gruppe Eins",
+            "details": "2:25h - 300 HM - 26 km/h"
+          },
+          {
+            "title": "Gruppe Zwei",
+            "details": "2:15h - 360 HM - 30-32 km/h"
+          }
+        ]
+      }
+    ],
+    "action": {
+      "title": "Kontakt",
+      "mail": true,
+      "href": "mailto:info@gruppettoruhr.cc"
+    }
+  },
+  "events": {
+    "intro": "Über unseren <a class=\"text-orange underline\" href=\"https://www.strava.com/clubs/gruppettoruhr-690171\" target=\"_blank\" rel=\"noreferrer\">Strava Club</a> organiseren wir regelmäßig Events und du bist natürlich jederzeit eingeladen! Schon mal den <b class=\"font-bold\">Col du Telegraphe</b> hoch gefahren oder im <b class=\"font-bold\">Inudstriegeschotter</b> gegravelt?",
+    "action": {
+      "title": "Zum Club",
+      "link": true,
+      "href": "https://www.strava.com/clubs/gruppettoruhr-690171"
+    }
+  },
+  "routes": {
+    "intro": "<div class=\"text-xl uppercase\">Unsere Hausrunden</div>",
+    "content": [
+      {
+        "title": "Belgian Waffels",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. ",
+        "map": {
+          "id": "r2711499384369791400",
+          "encodedPolyline": "yf|xHgunh@@gIrHj@vs@d^pMLzM|VbH{N~e@mg@xY{Hn\\aP`H~e@hAz@|RmLfDqFzh@eTzRyP`GgJnOgHhg@oIlk@gPWsFt@eAdnCel@zHaElEw\\pDeEzJ_V|HmHbX|X^sj@gMmj@{Dc_@IkWmHuoAkEeIXuEoBgH_`@e`AeB_JI{KrRuu@ld@_l@vb@es@eG{N_Hu\\zBy^{A{p@vGif@tOuTcJeGs@iJiDyI{DToJcKqGQaKyFoBpEYxReE`WqGdTuP`J}DrKiVvRsLyK{BlBoS}CuKdHyLsOy@iI\\gKjGy[qCacAoAqJePwVkQyOi[uP_[mz@}JcOoIw_@}U_mBiGwIkEwBeJeAwPzBt@vHrHpEvCvVvK`a@pC|VVj]d[thB|D~GvG~DfJsDxKEpYjPrG`InJpWzD|QbBpSmb@p`@mQxk@qCvEuFjBoK|cAqD|QoEdKsm@`_A_IpEwe@rCaTlL}i@~QqHNq`@`_@z\\xbAxJaL|NmGpGsPrSsNdW{EpVsX|YqMvJkJ~_@sQl[kAfMbC`KuHbIwKvVgf@zJjHaFeMhLrHjJzf@rcAveCtFpDbBbNja@bcA`AjMdErHhKzvBjBbQtMdj@_@rj@cX}X}HlH{J~UqDdEaFl]a`AtWkvAzXu@dAVrFmk@fPig@nIoOfHaGfJ{RxP{h@dTgDpFoStLmIch@{\\`PcZfGue@`i@}`@~r@qn@}u@cIiF"
+        }
+      },
+      {
+        "title": "Roller Roller",
+        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. ",
+        "map": {
+          "id": "r2711499384369791400",
+          "encodedPolyline": "yf|xHgunh@@gIrHj@vs@d^pMLzM|VbH{N~e@mg@xY{Hn\\aP`H~e@hAz@|RmLfDqFzh@eTzRyP`GgJnOgHhg@oIlk@gPWsFt@eAdnCel@zHaElEw\\pDeEzJ_V|HmHbX|X^sj@gMmj@{Dc_@IkWmHuoAkEeIXuEoBgH_`@e`AeB_JI{KrRuu@ld@_l@vb@es@eG{N_Hu\\zBy^{A{p@vGif@tOuTcJeGs@iJiDyI{DToJcKqGQaKyFoBpEYxReE`WqGdTuP`J}DrKiVvRsLyK{BlBoS}CuKdHyLsOy@iI\\gKjGy[qCacAoAqJePwVkQyOi[uP_[mz@}JcOoIw_@}U_mBiGwIkEwBeJeAwPzBt@vHrHpEvCvVvK`a@pC|VVj]d[thB|D~GvG~DfJsDxKEpYjPrG`InJpWzD|QbBpSmb@p`@mQxk@qCvEuFjBoK|cAqD|QoEdKsm@`_A_IpEwe@rCaTlL}i@~QqHNq`@`_@z\\xbAxJaL|NmGpGsPrSsNdW{EpVsX|YqMvJkJ~_@sQl[kAfMbC`KuHbIwKvVgf@zJjHaFeMhLrHjJzf@rcAveCtFpDbBbNja@bcA`AjMdErHhKzvBjBbQtMdj@_@rj@cX}X}HlH{J~UqDdEaFl]a`AtWkvAzXu@dAVrFmk@fPig@nIoOfHaGfJ{RxP{h@dTgDpFoStLmIch@{\\`PcZfGue@`i@}`@~r@qn@}u@cIiF"
+        }
+      }
+    ]
+  }
+}
