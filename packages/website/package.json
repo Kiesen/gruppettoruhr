@@ -1,6 +1,6 @@
 {
   "name": "website",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Dependencies for the gruppettoruhr website",
   "private": false,
   "license": "MIT",
@@ -18,7 +18,7 @@
     "google-polyline": "^1.0.3",
     "leaflet": "^1.7.1",
     "next": "^10.0.4",
-    "next-auth": "^3.1.0",
+    "next-auth": "^3.3.0",
     "postcss": "^8.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
