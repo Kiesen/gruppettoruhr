@@ -17,7 +17,7 @@
     "busboy": "^0.3.1",
     "next": "^10.0.4",
     "next-auth": "^3.3.0",
-    "postcss": "^8.2.1",
+    "postcss": "^8.2.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-dropzone": "^11.2.4",
