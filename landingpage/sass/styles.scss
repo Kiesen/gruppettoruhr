@@ -1,0 +1,83 @@
+$primary: #0ccfcf;
+$secondary: #4d4d4d;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&family=Signika+Negative:wght@300;600&display=swap');
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+header {
+    height: calc(50vh - 80px);
+    @include media-breakpoint-up(lg){
+        height: calc(100vh - 80px);
+    }
+    nav {
+        padding: 60px 50px;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        img.logo {
+            width: 160px;
+            height: auto;
+            @include media-breakpoint-up(lg){
+                width: 300px;
+            }
+        }
+        a {
+            color: $white;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            @include media-breakpoint-up(lg){
+                font-size: 1.4rem;
+            }
+        }
+    }
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.text,
+.text-image {
+    padding: 80px 0;
+}
+
+.img-fluid {
+    width: 100%;
+    height: auto;
+}
+
+.btn {
+    border-radius: 0;
+    color: $primary;
+    background: none;
+    border: 2px solid $primary;
+    &:hover {
+        color: $white;
+    }
+}
+
+body {
+    margin: 20px;
+    @include media-breakpoint-up(lg){
+        margin: 40px;
+    }
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 1.1rem;
+}
+
+h2,h3 {
+    font-size: 4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-family: 'Roboto Slab', serif;
+    color: $secondary;
+}
+    h3 {
+        font-size: 2.6rem;
+    }
+.mail-link {
+    color: $secondary;
+    font-size: 1.6rem;
+    text-decoration: none;
+}
